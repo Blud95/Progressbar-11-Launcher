@@ -1,71 +1,125 @@
+// Complete Progressbar 11 Launcher Application Code
+
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(Progressbar11Launcher());
+}
 
-class MyApp extends StatelessWidget {
+class Progressbar11Launcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Progressbar 11 Launcher',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
+      home: HomeScreen(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Progressbar 11 Launcher'),
-        backgroundColor: Colors.blueAccent,
       ),
-      body: Stack(
-        children: [
-          Center(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.8),
-                borderRadius: BorderRadius.circular(15.0),
-                border: Border.all(color: Colors.blueAccent, width: 2.0),
-              ),
-              padding: EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Welcome to Progressbar 11', style: TextStyle(fontSize: 24)),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Open App Grid'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.blue,
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              color: Colors.white.withOpacity(0.6),
-              height: 60,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Icon(Icons.home),
-                  Icon(Icons.apps),
-                  Icon(Icons.settings),
-                ],
-              ),
-            ),
-          )
+      body: Column(
+        children: <Widget>[
+          Taskbar(),
+          AppGrid(),
         ],
       ),
+      drawer: StartMenu(),
+    );
+  }
+}
+
+class Taskbar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50,
+      color: Colors.blue,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Text('Start'),
+          ),
+          // Add other taskbar items here
+        ],
+      ),
+    );
+  }
+}
+
+class StartMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            child: Text('Start Menu'),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+          ),
+          ListTile(
+            title: Text('Item 1'),
+            onTap: () {
+              // Handle menu item tap
+            },
+          ),
+          ListTile(
+            title: Text('Item 2'),
+            onTap: () {
+              // Handle menu item tap
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AppGrid extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: GridView.count(
+        crossAxisCount: 4,
+        children: <Widget>[
+          AppIcon(icon: Icons.apps, label: 'App 1'),
+          AppIcon(icon: Icons.app_blocking, label: 'App 2'),
+          // Add more app icons here
+        ],
+      ),
+    );
+  }
+}
+
+class AppIcon extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  AppIcon({required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Icon(icon, size: 50),
+        Text(label),
+      ],
     );
   }
 }
