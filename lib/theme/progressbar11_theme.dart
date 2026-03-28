@@ -1,36 +1,64 @@
-// A custom Progressbar 11 color scheme and theme data with frosted glass effects, soft pastels, and modern animations.
+// Enhanced Progressbar 11 Theme
 
-import 'package:flutter/material.dart';
+// Color Palette
+const Color primaryColor = Color(0xFF4A90E2);
+const Color secondaryColor = Color(0xFF50E3C2);
+const Color backgroundColor = Color(0xFFE3F2FD);
 
-class Progressbar11Theme {
-  static ThemeData get theme {
-    return ThemeData(
-      primaryColor: Color(0xFFE9B8D1), // Soft pastel pink
-      accentColor: Color(0xFFA0DFF7), // Soft pastel blue
-      scaffoldBackgroundColor: Color(0xFFF0F4F8), // Light background for frosted glass effect
-      appBarTheme: AppBarTheme(
-        backgroundColor: Colors.transparent, // Transparent app bar for the frosted effect
-        elevation: 0,
-      ),
-      buttonTheme: ButtonThemeData(
-        buttonColor: Color(0xFFB3E5FC), // Soft pastel blue button
-        textTheme: ButtonTextTheme.primary,
-      ),
-      cardTheme: CardTheme(
-        color: Colors.white.withOpacity(0.9), // Frosted glass effect for cards
-        elevation: 5,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+// Frosted Glass Effect
+class FrostedGlass extends StatelessWidget {
+  final Widget child;
+
+  const FrostedGlass({Key? key, required this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.5),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: child,
         ),
       ),
-      // Modern animations for the theme
-      pageTransitionsTheme: PageTransitionsTheme(
-        builders: {
-          TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-          TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
-        },
-      ),
-      // Define other theme properties as needed
     );
   }
 }
+
+// Typography
+TextStyle headerStyle = TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.bold,
+  color: primaryColor,
+);
+
+TextStyle bodyStyle = TextStyle(
+  fontSize: 16,
+  color: Colors.black,
+);
+
+// Helper methods
+Widget buildProgressBar(double progress) {
+  return Container(
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: secondaryColor,
+      borderRadius: BorderRadius.circular(5.0),
+    ),
+    child: FractionallySizedBox(
+      widthFactor: progress,
+      child: Container(
+        decoration: BoxDecoration(
+          color: primaryColor,
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+      ),
+    ),
+  );
+}
+
+// Usage example:
+// Widget progressBar = buildProgressBar(0.75); // for 75% progress
