@@ -1,0 +1,29 @@
+# Flutter/Dart
+
+# Packages
+**/packages/**
+
+# Build outputs
+**/build/**
+**/ios/Flutter/**
+**/android/.gradle/**
+**/android/app/build/**
+
+# iOS
+**/ios/.symlinks/**
+**/ios/Pods/**
+**/ios/Runner.xcworkspace/**
+
+# Android
+.gradle/
+local.properties
+**/app/**/generated/**
+
+# VS Code
+.vscode/
+
+# IntelliJ IDEA
+.idea/
+
+# Flutter test results
+flutter_*.log
